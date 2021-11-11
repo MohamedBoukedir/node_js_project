@@ -3,26 +3,15 @@ const router = express.Router();
 
 const requestHandlers = require("./requestHandlers.js");
 const User = require("./model.js");
-const test = [
-    {
-        username: "ahmed",
-        password: "123",
-        files: ["upload1", "upload2", "upload3"],
-    },
-    {
-        username: "ahmed",
-        password: "12345",
-        files: ["upload11", "upload22", "upload33"],
-    }
-]
+
 var session;
 var user = null;
 router
     .get('/', (req, res) => {
-        requestHandlers.login(req, res);
+        requestHandlers.login(user, req, res);
     })
     .get("/show", (req, res) => {
-        console.log(user);
+        requestHandlers.show(user, req, res);
     })
     .get("/login", (req, res) => {
         requestHandlers.login(req, res);
@@ -62,19 +51,18 @@ router
                 console.log('user Created ', user);
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
-                console.log(user);
                 res.end();
             }, (err) => next(err))
             .catch((err) => next(err));
 
     }).put("/upload", (req, res) => {
         user.files.push(req.body.file);
-        console.log(user);
         User.findByIdAndUpdate(user._id, {
-            $set: user,
-        }, { new: false })
-        res.send("yes");
-        res.end();
-    })
-module.exports = router;
+            $set: { files: user.files },
+        }, { new: true }).then(() => {
+            res.send("yes");
+            res.end();
+        });
+    });
+    module.exports = router;
 

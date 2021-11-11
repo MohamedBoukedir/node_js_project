@@ -1,10 +1,10 @@
 
 const fs = require('fs');
 
-function login(req,res) {
+function login(user, req, res) {
     var session = req.session;
     if (session.userid) {
-        res.render(__dirname + '/public/show.ejs', { name: session.userid });
+        res.render(__dirname + '/public/show.ejs', { name: session.userid, files: user.files });
         res.end();
     } else {
         fs.createReadStream('./public/log_in.ejs').pipe(res);
@@ -21,10 +21,10 @@ function signin(req, res) {
         res.end();
     });
 }
-function show(users, req, res) {
+function show(user, req, res) {
     var session = req.session;
     if (session.userid) {
-        res.render(__dirname + '/public/show.ejs', { name: session.userid });
+        res.render(__dirname + '/public/show.ejs', { name: session.userid, files: user.files });
         res.end();
     } else {
         fs.createReadStream('./public/log_in.ejs').pipe(res);
