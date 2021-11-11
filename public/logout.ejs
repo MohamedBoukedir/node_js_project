@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        position: absolute;
+        top: 3%;
+        left: 30%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+          0 10px 10px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+        width: 900px;
+        height: 700px;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Grandstander&display=swap");
+      body {
+        font-family: "Grandstander", cursive;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      .nav-menu {
+        height: 100%;
+      }
+      .side-nav .nav-menu {
+        list-style: none;
+        padding: 40px 0;
+        width: 200px;
+        background-color: #ff416c;
+      }
+      .side-nav .nav-item {
+        position: relative;
+        padding: 10px 20px;
+      }
+      .nav-item.active {
+        background-color: #fff;
+        box-shadow: 0px -3px rgba(0, 0, 0, 0.2), 0px 3px rgba(0, 0, 0, 0.2);
+      }
+      .nav-item.active a {
+        color: #2980b9;
+      }
+      .nav-item a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .menu-text {
+        padding: 0 20px;
+      }
+      .side-nav .nav-item.active::before {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        bottom: 100%;
+        right: 0;
+        height: 150%;
+        width: 20px;
+        border-bottom-right-radius: 25px;
+        box-shadow: 0 20px 0 0 #fff;
+      }
+      .side-nav .nav-item.active::after {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        top: 100%;
+        right: 0;
+        height: 150%;
+        width: 20px;
+        border-top-right-radius: 25px;
+        box-shadow: 0 -20px 0 0 #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+        <nav class="side-nav">
+          <ul class="nav-menu">
+            <div class="nav-item" style="margin-top:50px;margin-left: 20px;">
+              <span>Hello <%=name%></span>
+            </div>
+            <li class="nav-item" style="margin-top:150px;">
+              <a href="http://localhost:3000/upload"
+                ><i class="fas fa-user"></i
+                ><span class="menu-text">Upload</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="http://localhost:3000/find"
+                ><i class="fas fa-user"></i
+                ><span class="menu-text">find</span></a
+              >
+            </li>
+            <li class="nav-item ">
+              <a href="http://localhost:3000/show"
+                ><i class="fas fa-file-alt"></i
+                ><span class="menu-text">show</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a href="http://localhost:3000/logout"
+                ><i class="fas fa-play"></i
+                ><span class="menu-text">logout</span></a
+              >
+            </li>
+
+          </ul>
+        </nav>
+        <div style="background-color:#ffffff;height: 100%;width:80%;">
+        </div>
+    </div>
+  </body>
+</html>
