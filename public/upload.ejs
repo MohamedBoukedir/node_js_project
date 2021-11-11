@@ -29,7 +29,7 @@
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       .nav-menu {
         height: 100%;
       }
@@ -83,39 +83,73 @@
   </head>
   <body>
     <div class="container" id="container">
-        <nav class="side-nav">
-          <ul class="nav-menu">
-            <div class="nav-item" style="margin-top:50px;margin-left: 20px;">
-              <span>Hello <%=name%></span>
-            </div>
-            <li class="nav-item  active" style="margin-top:150px;">
-              <a href="http://localhost:3000/upload"
-                ><i class="fas fa-user"></i
-                ><span class="menu-text">Upload</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="http://localhost:3000/find"
-                ><i class="fas fa-user"></i
-                ><span class="menu-text">find</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="http://localhost:3000/show"
-                ><i class="fas fa-file-alt"></i
-                ><span class="menu-text">show</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="http://localhost:3000/logout"
-                ><i class="fas fa-play"></i
-                ><span class="menu-text">logout</span></a
-              >
-            </li>
-          </ul>
-        </nav>
-        <div style="background-color:#ffffff;height: 100%;width:80%;">
+      <nav class="side-nav">
+        <ul class="nav-menu">
+          <div class="nav-item" style="margin-top: 50px; margin-left: 20px">
+            <span>Hello <%=name%></span>
+          </div>
+          <li class="nav-item active" style="margin-top: 150px">
+            <a href="http://localhost:3000/upload"
+              ><i class="fas fa-user"></i
+              ><span class="menu-text">Upload</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="http://localhost:3000/find"
+              ><i class="fas fa-user"></i><span class="menu-text">find</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="http://localhost:3000/show"
+              ><i class="fas fa-file-alt"></i
+              ><span class="menu-text">show</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="http://localhost:3000/logout"
+              ><i class="fas fa-play"></i
+              ><span class="menu-text">logout</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div
+        style="
+          background-color: #ffffff;
+          height: 100%;
+          width: 80%;
+          display: flex;
+        "
+      >
+        <div style="align-items: center; justify-content: center">
+          <input type="text" id="text" />
+          <button id="btn_upload">upload</button>
         </div>
+      </div>
     </div>
+    <script>
+      const btn_upload = document.getElementById("btn_upload");
+      btn_upload.addEventListener("click", () => {
+        const upload_text=document.getElementById('text');
+        const dataObject = {
+          file :""
+        };
+        dataObject.file=upload_text.value;
+        fetch("http://localhost:3000/upload", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataObject),
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) =>
+            // this is the data we get after putting our data,
+            console.log(data)
+          );
+      });
+    </script>
   </body>
 </html>

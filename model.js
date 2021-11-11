@@ -2,9 +2,8 @@ const mongoose =require('mongoose');
 const Schema =mongoose.Schema;
 
 const userSchema = new Schema({
-    id:{
-        type :Number,
-        autoIncrement: true
+    name:{
+        type:String
     },
     username :{
         type :String,
@@ -19,4 +18,4 @@ const userSchema = new Schema({
     }
 },{timestamps :true});
 var user=mongoose.model('user',userSchema);
-exports.user=user;
+module.exports=user;

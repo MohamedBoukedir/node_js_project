@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const requestHandlers = require("./requestHandlers.js");
+const User = require("./model.js");
 const test = [
     {
         username: "ahmed",
@@ -15,19 +16,16 @@ const test = [
     }
 ]
 var session;
+var user = null;
 router
     .get('/', (req, res) => {
-        session = req.session;
         requestHandlers.login(req, res);
     })
     .get("/show", (req, res) => {
-        requestHandlers.show(req, res);
+        console.log(user);
     })
     .get("/login", (req, res) => {
         requestHandlers.login(req, res);
-    })
-    .get("/signin", (req, res) => {
-        requestHandlers.signin(req, res);
     })
     .get("/find", (req, res) => {
         requestHandlers.find(req, res);
@@ -38,16 +36,44 @@ router
     .get('/logout', (req, res) => {
         requestHandlers.logout(req, res);
     })
-    .post('/login', (req, res) => {
+    .post('/login', (req, res, next) => {
+        User.find({})
+            .then((users) => {
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].username == req.body.username && users[i].password == req.body.password) user = users[i];
+                }
+                if (user == null) {
+                    res.send('Invalid username or password');
+                } else {
+                    session = req.session;
+                    session.userid = req.body.username;
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.redirect(200, '/');
+                    res.end();
+                }
+            }, (err) => next(err))
+            .catch((err) => next(err));
+    })
+    .post('/signin', (req, res, next) => {
         console.log(req.body);
-        if (req.body.username == test[0].username && req.body.password == test[0].password) {
-            session = req.session;
-            session.userid = req.body.username;
-            res.redirect(200,'/');
-        }
-        else {
-            res.send('Invalid username or password');
-        }
+        User.create(req.body)
+            .then((user) => {
+                console.log('user Created ', user);
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                console.log(user);
+                res.end();
+            }, (err) => next(err))
+            .catch((err) => next(err));
+
+    }).put("/upload", (req, res) => {
+        user.files.push(req.body.file);
+        console.log(user);
+        User.findByIdAndUpdate(user._id, {
+            $set: user,
+        }, { new: false })
+        res.send("yes");
         res.end();
     })
 module.exports = router;

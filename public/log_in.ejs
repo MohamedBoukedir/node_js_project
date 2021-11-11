@@ -274,9 +274,31 @@
         const password = document.getElementById("password");
         const signUpButton2 = document.getElementById("signup2");
         signUpButton2.addEventListener("click", () => {
-          console.log(name.value);
-          console.log(password.value);
-          console.log(username.value);
+          const url = "http://localhost:3000/signin";
+          var data = {
+            name :"",
+            username: "",
+            password: "",
+            files :[]
+          };
+          data.name=name.value;
+          data.password = password.value;
+          data.username = username.value;
+          const postData = async (url, data) => {
+            const response = await fetch(url, {
+              method: "POST",
+              credentials: "same-origin",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              // Body data type must match "Content-Type" header
+              body: JSON.stringify(data),
+            });
+            return "";
+          };
+          postData(url, data).then(() => {
+            window.location.reload();
+          });
         });
         signInButton.addEventListener("click", () => {
           container.classList.remove("right-panel-active");
@@ -294,7 +316,7 @@
         };
         data.password = password.value;
         data.username = username.value;
-        const postData = async (url ,data ) => {
+        const postData = async (url, data) => {
           const response = await fetch(url, {
             method: "POST",
             credentials: "same-origin",
@@ -304,10 +326,10 @@
             // Body data type must match "Content-Type" header
             body: JSON.stringify(data),
           });
-          return("");
+          return "";
         };
-        postData(url,data).then(()=>{
-          window.location.reload()
+        postData(url, data).then(() => {
+          window.location.reload();
         });
       });
     </script>
