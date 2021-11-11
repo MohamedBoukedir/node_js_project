@@ -34,7 +34,7 @@ function show(user, req, res) {
 function upload(req, res) {
     var session = req.session;
     if (session.userid) {
-        res.render(__dirname + '/public/upload.ejs', { name: "ahmed" });
+        res.render(__dirname + '/public/upload.ejs', { name: session.userid });
         res.end();
         return (session);
     } else {
@@ -45,7 +45,7 @@ function upload(req, res) {
 function find(req, res) {
     var session = req.session;
     if (session.userid) {
-        res.render(__dirname + '/public/find.ejs', { name: "ahmed" });
+        res.render(__dirname + '/public/find.ejs', { name: session.userid });
         res.end();
         return (session);
     } else {

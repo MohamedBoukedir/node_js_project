@@ -113,10 +113,17 @@
           </li>
         </ul>
       </nav>
-      <div style="background-color: #ffffff; height: 100%; width: 80%">
-        <% files.forEach(function(file){ %>
-        <p><strong><%= file %></strong></p>
-        <% }) %>
+      <div style="border-radius: 10px;background-color: #ffffff; min-height: 100%; width: 80%;position:relative;overflow-y: scroll;">
+          <div style="position: absolute;left:2%;right:2%;margin-top: 2px;height:100%;">
+            <% files.forEach(function(file){ %>
+              <div style="border-radius: 15px;margin:2px;border:  #ff416c 1px solid;">
+                <div style="border-radius: 2px;margin:2px;">
+                  <p><strong>_______________<%= file %></strong></p>
+                </div>
+              </div>
+            
+            <% }) %>
+          </div>
       </div>
     </div>
   </body>

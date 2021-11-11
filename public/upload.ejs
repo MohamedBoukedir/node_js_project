@@ -118,11 +118,14 @@
           background-color: #ffffff;
           height: 100%;
           width: 80%;
-          display: flex;
+          position: relative;
         "
       >
-        <div style="align-items: center; justify-content: center">
-          <input type="text" id="text" />
+        <div style="position: absolute; left: 10%; top: 30%">
+          <textarea id="text" name="upload" rows="4" cols="80">
+            </textarea
+          >
+          <br /><br />
           <button id="btn_upload">upload</button>
         </div>
       </div>
@@ -130,11 +133,11 @@
     <script>
       const btn_upload = document.getElementById("btn_upload");
       btn_upload.addEventListener("click", () => {
-        const upload_text=document.getElementById('text');
+        const upload_text = document.getElementById("text");
         const dataObject = {
-          file :""
+          file: "",
         };
-        dataObject.file=upload_text.value;
+        dataObject.file = upload_text.value;
         fetch("http://localhost:3000/upload", {
           method: "PUT",
           headers: {
@@ -146,9 +149,10 @@
             return response.json();
           })
           .then((data) =>
-            // this is the data we get after putting our data,
             console.log(data)
-          );
+          ).then(()=>{
+            upload_text.innerhtml="";
+          })
       });
     </script>
   </body>
